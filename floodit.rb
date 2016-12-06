@@ -3,23 +3,28 @@ require 'colorize'
 splash = ConsoleSplash.new(30,80)
 splash.write_header("Flood-It", "Joseph Igali", "0.0.1",
   {:nameFg => :blue, :authorFg => :red, :versionFg => :green})
-splash.write_top_pattern(">", {:bg => :green})
-splash.write_bottom_pattern("<")
-splash.write_vertical_pattern("*")
+splash.write_top_pattern(">", {:fg => :green})
+splash.write_bottom_pattern("<", {:fg => :red})
+splash.write_vertical_pattern("*", :fg => :blue)
 'clear'
 splash.splash
 userInput = gets.chomp
+def game_board 
+  grid = Array.new(3){Array.new(3) {'  '}}
+  print grid
+  
+end
 def menu 
   puts "Main Menu:"
   puts "s = start game"
   puts "c = change size"
   puts "q = quit"
-  if (highscore == nil) then 
-    puts "No games played yet"
-  else 
-      highscore
-  end
-  userChoice = "Please enter your choice"
+  puts "No games played yet"
+  print "Please enter a choice: "
+  userChoice = gets.chomp 
+    if (userChoice == "s") then
+       game_board
+    end
 end
 if (userInput == "j") then 
   menu
