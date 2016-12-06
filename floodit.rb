@@ -1,8 +1,9 @@
 require 'console_splash'
 require 'colorize'
 splash = ConsoleSplash.new(30,80)
-splash.write_header("Flood-It", "Joseph Igali", "0.0.1")
-splash.write_top_pattern(">")
+splash.write_header("Flood-It", "Joseph Igali", "0.0.1",
+  {:nameFg => :blue, :authorFg => :red, :versionFg => :green})
+splash.write_top_pattern(">", {:bg => :green})
 splash.write_bottom_pattern("<")
 splash.write_vertical_pattern("*")
 'clear'
@@ -20,7 +21,7 @@ def menu
   end
   userChoice = "Please enter your choice"
 end
-if (userInput == "\n") then 
+if (userInput == "j") then 
   menu
 end
 
