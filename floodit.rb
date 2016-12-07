@@ -9,12 +9,35 @@ splash.write_vertical_pattern("*", :fg => :blue)
 'clear'
 splash.splash
 userInput = gets.chomp
-def game_board 
-  grid = Array.new(3){Array.new(3) {'  '}}
-  print grid
-  
+
+def block(color)
+  if color == "red"
+    print "  ".colorize( :background => :red)
+  elsif color == "blue"
+    print "  ".colorize( :background => :blue)
+  elsif color == "green"
+    print "  ".colorize( :background => :green)
+  elsif color == "yellow"
+    print "  ".colorize( :background => :yellow) 
+  elsif color == "cyan"
+    print "  ".colorize( :background => :cyan)
+  elsif color == "magenta"
+    print "  ".colorize( :background => :magenta)
+  end
 end
-def menu 
+
+def init_game_board(width, height)
+  grid = Array.new(height){Array.new(width){rand(6)+1} }
+  grid[0][0] = 0
+  colors = ["red", "red", "blue", "green", "yellow", "cyan", "magenta"]
+  grid.each do |e|
+    e.each do |f|
+       block(colors[f])
+    end
+    puts 
+  end
+end
+def menu(width, height)
   puts "Main Menu:"
   puts "s = start game"
   puts "c = change size"
@@ -23,16 +46,25 @@ def menu
   print "Please enter a choice: "
   userChoice = gets.chomp 
     if (userChoice == "s") then
-       game_board
+       init_game_board(width, height)
+    elsif (userChoice == "c") then
+       puts "New Width?"
+       width = gets.chomp
+       puts "New Height?"
+       height = gets.chomp
+       menu(width.to_i, height.to_i)
+    elsif (userChoice == "q") then 
+      exit
     end
 end
 if (userInput == "j") then 
-  menu
+  menu(14, 5)
 end
 
     
 
 def get_board(width, height)
+  print ""
   # TODO: Implement this method
   #
   # This method should return a two-dimensional array.
