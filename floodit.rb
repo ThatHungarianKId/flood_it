@@ -1,5 +1,7 @@
 require 'console_splash'
 require 'colorize'
+$width = 14
+$height = 9 
 splash = ConsoleSplash.new(30,80)
 splash.write_header("Flood-It", "Joseph Igali", "0.0.1",
   {:nameFg => :blue, :authorFg => :red, :versionFg => :green})
@@ -8,20 +10,19 @@ splash.write_bottom_pattern("<", {:fg => :red})
 splash.write_vertical_pattern("*", :fg => :blue)
 'clear'
 splash.splash
-userInput = gets.chomp
-
+userInput = gets
 def block(color)
-  if color == "red"
+  if color == :red
     print "  ".colorize( :background => :red)
-  elsif color == "blue"
+  elsif color == :blue
     print "  ".colorize( :background => :blue)
-  elsif color == "green"
+  elsif color == :green
     print "  ".colorize( :background => :green)
-  elsif color == "yellow"
+  elsif color == :yellow
     print "  ".colorize( :background => :yellow) 
-  elsif color == "cyan"
+  elsif color == :cyan
     print "  ".colorize( :background => :cyan)
-  elsif color == "magenta"
+  elsif color == :magenta
     print "  ".colorize( :background => :magenta)
   end
 end
@@ -29,10 +30,12 @@ end
 def init_game_board(width, height)
   grid = Array.new(height){Array.new(width){rand(6)+1} }
   grid[0][0] = 0
-  colors = ["red", "red", "blue", "green", "yellow", "cyan", "magenta"]
+  colors = [:red, :blue, :green, :yellow, :cyan, :magenta]
+  randCol = block(colors.sample)
+  newColors = [randCol,:red, :blue, :green, :yellow, :cyan, :magenta]
   grid.each do |e|
     e.each do |f|
-       block(colors[f])
+       block(newColors[f])
     end
     puts 
   end
@@ -57,14 +60,26 @@ def menu(width, height)
       exit
     end
 end
-if (userInput == "j") then 
-  menu(14, 5)
+if (userInput == "\n")
+  menu($width,$height)
 end
+
 
     
 
 def get_board(width, height)
-  print ""
+  grid = Array.new(height){Array.new(width){rand(6)+1} }
+  grid[0][0] = 0
+  colors = [:red, :blue, :green, :yellow, :cyan, :magenta]
+  randCol = block(colors.sample)
+  newColors = [randCol,:red, :blue, :green, :yellow, :cyan, :magenta]
+  grid.each do |e|
+    e.each do |f|
+       block(newColors[f])
+    end
+    puts 
+  end
+  print "Pick a colour: "
   # TODO: Implement this method
   #
   # This method should return a two-dimensional array.
@@ -82,6 +97,5 @@ def get_board(width, height)
   # this will be used for checking the functionality
   # of your implementation.
 end
-
 # TODO: Implement everything else as described in the
 #       assignment brief.
